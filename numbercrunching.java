@@ -12,7 +12,7 @@ public class RandomNumber {
         data.close();
     }
 }
-//ugly num
+//ugly num.
 import java.util.Scanner;
 
 public class Main {

@@ -45,3 +45,24 @@ public class Main {
         scanner.close();
     }
 }
+//sum of numbers
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("How many numbers? ");
+        int count = scanner.nextInt();
+        int[] numbers = new int[count];
+        System.out.println("Enter " + count + " numbers:");
+        for (int i = 0; i < count; i++) {
+            numbers[i] = scanner.nextInt();
+        }
+        System.out.println("sum of all numbers:");
+        for (int i = 0; i < count - 1; i++) {
+            int sum = numbers[i] + numbers[i + 1];
+            System.out.println(numbers[i] + " + " + numbers[i + 1] + " = " + sum);
+        }
+    }
+}
+
+

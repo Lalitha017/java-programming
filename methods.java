@@ -225,4 +225,23 @@ public class Main {
     }
 }
 
+class Main {
+    public static void main(String[] args) {
+        SubClass1 obj1 = new SubClass1();
+        SubClass2 obj2 = new SubClass2();
+        obj1.add(20, 10);
+        obj2.subtract(20, 10);
+    }
+}
+class SubClass1 {
+    public void add(int x, int y) {
+        System.out.println("Sum: " + (x + y));
+    }
+}
+class SubClass2 {
+    public void subtract(int x, int y) {
+        System.out.println("Difference: " + (x - y));
+    }
+}
+
 

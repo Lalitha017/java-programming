@@ -1,3 +1,4 @@
+
 //methods
 class Main {
     public static void main(String[] args) {
@@ -115,3 +116,42 @@ public class Calculator {
         System.out.println("Result: " + result);
     }
 }
+
+//login
+mport java.util.Scanner;
+class Main {
+    public static class Instagram {
+        static void myLogin() {
+            Scanner data = new Scanner(System.in);
+            System.out.print("Enter user name: ");
+            String username = data.nextLine();
+            System.out.println("Welcome, " + username + "!");
+        }
+    }
+    public static void main(String[] args) {
+        Instagram.myLogin();
+    }
+}
+
+import java.util.Scanner;
+public class Main {
+    public static boolean instaLogin(String username, String password) {
+        return username.equals("instauser") && password.equals("insta@123");
+    }
+
+    public static void main(String[] args) {
+        Scanner data = new Scanner(System.in);
+        System.out.println("Enter the insta username:");
+        String username = data.nextLine();
+        System.out.println("Enter the insta password:");
+        String password = data.nextLine();
+        if (instaLogin(username, password)) {
+            System.out.println("insta login successful (simulated).");
+        } else {
+            System.out.println("insta login failed (simulated).");
+        }
+
+        data.close();
+    }
+}
+

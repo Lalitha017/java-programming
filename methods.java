@@ -132,7 +132,7 @@ class Main {
         Instagram.myLogin();
     }
 }
-
+//insta login
 import java.util.Scanner;
 public class Main {
     public static boolean instaLogin(String username, String password) {

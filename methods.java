@@ -177,5 +177,52 @@ public class Main {
     }
 }
 
+//methods
+class Main {
+    public static void main(String[] args) {
+        System.out.println(" ");
+        Main obj = new Main(); 
+        obj.sample();        
+    }
+    public void sample() {    
+        int a = 17;
+        System.out.println(a); 
+    }
+}
+
+//instatnt class
+class Main1 {
+    public void add(int x, int y) {
+        System.out.println("Sum: " + (x + y));
+    }
+}
+class Sub1 extends Main1 {
+    public void showSub1() {
+        System.out.println("Subclass 1");
+        add(10, 20);
+    }
+}
+class Sub2 extends Main1 {
+    public void showSub2() {
+        System.out.println("Subclass 2");
+        add(30, 40);
+    }
+}
+class Sub3 extends Main1 {
+    public void showSub3() {
+        System.out.println("Subclass 3");
+        add(50, 60);
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Sub1 obj1 = new Sub1();
+        obj1.showSub1();
+        Sub2 obj2 = new Sub2();
+        obj2.showSub2();
+        Sub3 obj3 = new Sub3();
+        obj3.showSub3();
+    }
+}
 
 

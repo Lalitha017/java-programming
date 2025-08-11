@@ -49,3 +49,51 @@ class SumOfTwoArrays {
         }
     }
 }
+//user input
+import java.util.Scanner;
+class SumOfTwoArrays {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the number of elements in the arrays: ");
+        int n = sc.nextInt();
+        int[] arr1 = new int[n];
+        int[] arr2 = new int[n];
+        int[] sumArray = new int[n];  
+        System.out.println("Enter elements of first array:");
+        for (int i = 0; i < n; i++) {
+            arr1[i] = sc.nextInt();
+        }
+        System.out.println("Enter elements of second array:");
+        for (int i = 0; i < n; i++) {
+            arr2[i] = sc.nextInt();
+        }
+        for (int i = 0; i < n; i++) {
+            sumArray[i] = arr1[i] + arr2[i];
+        }
+        System.out.print("Sum of arrays: ");
+        for (int num : sumArray) {
+            System.out.print(num + " ");
+        }
+        sc.close();
+    }
+}
+class Main {
+    public static void main(String[] args) {
+        int[] arr1 = {1, 0, 3};
+        int[] arr2 = {4, 5, 7};
+        if (arr1.length != arr2.length) {
+            System.out.println("Arrays must be of the same length!");
+            return;
+        }
+        int[] sum = new int[arr1.length];
+        for (int i = 0; i < arr1.length; i++) {
+            sum[i] = arr1[i] + arr2[i];
+        }
+        System.out.print("Sum array: ");
+        for (int value : sum) {
+            System.out.print(value + " ");
+        }
+    }
+}
+
+

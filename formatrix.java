@@ -179,3 +179,57 @@ class Main {
     }
 }
 //
+class Main {
+    public static void main(String[] args) {
+        int[][][] arr = {
+            { {1, 2, 3} },                         
+            { {4, 5, 6}, {7, 8, 9}, {10, 11, 12} }  
+        };
+        int[][] newTwoD = new int[arr[1].length - 1][];
+        int index = 0;
+        for (int i = 0; i < arr[1].length; i++) {
+            if (i != 1) { 
+                newTwoD[index++] = arr[1][i];
+            }
+        }
+        arr[1] = newTwoD; 
+        for (int[][] twoD : arr) {
+            for (int[] oneD : twoD) {
+                for (int num : oneD) {
+                    System.out.print(num + " ");
+                }
+                System.out.println();
+            }
+            System.out.println();
+        }
+    }
+}
+
+//2d
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int[][] arr = new int[6][6];
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 6; j++) {
+                arr[i][j] = sc.nextInt();
+            }
+        }
+        int maxSum = Integer.MIN_VALUE;
+        for (int i = 0; i <= 3; i++) {
+            for (int j = 0; j <= 3; j++) {
+                int sum = arr[i][j] + arr[i][j+1] + arr[i][j+2]   // top row
+                        + arr[i+1][j+1]                          // middle
+                        + arr[i+2][j] + arr[i+2][j+1] + arr[i+2][j+2]; // bottom row
+
+                if (sum > maxSum) {
+                    maxSum = sum;
+                }
+            }
+        }
+        System.out.println(maxSum);
+    }
+}
+
+

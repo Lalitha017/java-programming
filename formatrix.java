@@ -32,7 +32,7 @@ class Main {
         }
     }
 }
-
+//
 class Main {
     public static void main(String[] args) {
         int[][] arr;
@@ -54,7 +54,7 @@ class Main {
         }
     }
 }
-
+//
 class Main {
     public static void main(String[] args) {
         int x = 2;
@@ -75,7 +75,7 @@ class Main {
         }
     }
 }
-
+//
 class Main {
     public static void main(String[] args) {
         int x = 3;

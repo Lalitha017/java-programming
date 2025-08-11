@@ -1,4 +1,4 @@
-//sub array
+///sub array
 import java.util.Arrays;
 class Main {
     public static void main(String[] args) {
@@ -13,7 +13,7 @@ class Main {
     }
 }
 
-//merged array
+///merged array
 class Main {
     public static void main(String[] args) {
         int[] arr1 = {1, 0, 3};

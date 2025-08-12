@@ -84,8 +84,9 @@ class Main {
             System.out.println("Names are different.");
         }
         data.close();
-    }
+    }  
 }
+        
         
        
         

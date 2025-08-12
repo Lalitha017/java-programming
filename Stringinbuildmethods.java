@@ -165,7 +165,22 @@ public class Main {
         mystring.getChars(7,7,data,0);
         System.out.print(mystring);
  }
-}        
+}
+        
+//arr
+public class Main {
+    public static void main(String[] args) {
+        char[] data = {'9','1','0','7'};
+        System.out.println(data);
+        String name = "Lalitha";
+        byte[] arr = name.getBytes();
+        System.out.println("First byte value: " + arr[0]); 
+        name.getChars(0, 4, data, 0);
+        System.out.println(data); 
+        System.out.println(data[0]); 
+    }
+}
+        
         
         
         

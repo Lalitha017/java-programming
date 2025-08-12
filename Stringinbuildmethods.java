@@ -68,6 +68,24 @@ class Main {
         System.out.println("The number is: " + ch3);
         int ch4=str.compareTo(str1);
         System.out.println("Result:"+ch4);
+
+ //comparetoIgnorecase()
+  import java.util.Scanner;
+class Main {
+    public static void main(String[] args) {
+        Scanner data = new Scanner(System.in);
+        System.out.println("Enter Name1:");
+        String str1 = data.nextLine();
+        System.out.println("Enter Name2:");
+        String str2 = data.nextLine();
+        if (str1.equalsIgnoreCase(str2)) {
+            System.out.println("Both names are equal (ignoring case).");
+        } else {
+            System.out.println("Names are different.");
+        }
+        data.close();
+    }
+}
         
        
         

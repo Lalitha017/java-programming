@@ -87,7 +87,31 @@ class Main {
     }  
 }
         
+//contentics        
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner x = new Scanner(System.in);
+        System.out.println("Enter any String1:");
+        String str1 = x.nextLine();
+        boolean my = str1.contains("Hello");
+        System.out.println(my);
+        boolean mystr = str1.contentEquals("Hello");
+        System.out.println(mystr);
+    }
+}  
+
+//copyvalueof()
+        public class Main {
+    public static void main(String[] args) {
+        char[] data = {'H','E','L','L','O'};
         
+        String str = String.copyValueOf(data, 0, 5);
+        System.out.println(str);
+
+        System.out.println(str.endsWith("H"));
+    }
+}
        
         
         

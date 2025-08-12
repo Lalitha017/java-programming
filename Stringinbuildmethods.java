@@ -111,7 +111,38 @@ public class Main {
 
         System.out.println(str.endsWith("H"));
     }
+} 
+    //forloop
+        import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter some text:");
+        String input = sc.nextLine();
+        char[] data = input.toCharArray();
+        String str = String.copyValueOf(data);
+        System.out.println("String from char array: " + str);
+        char[] charArray = str.toCharArray();
+        System.out.print("Char array from string: ");
+        for (char c : charArray) {
+            System.out.print(c + " ");
+        }
+        System.out.println();
+        String str2 = String.copyValueOf(charArray);
+        System.out.println("String again from char array: " + str2);
+        sc.close();
+    }
 }
-       
+   //format
+    import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        String data = "hello";
+        String hi = "hi %s my age %d";
+        System.out.println(data.equalsIgnoreCase("hello"));
+        System.out.printf(hi, "hello", 20);
+    }
+}
+        
         
         

@@ -155,6 +155,17 @@ public class Main {
         System.out.println(data);
     }
 }
+
+// regno
+public class Main {
+    public static void main(String[] args) {
+        char[] data={'9','1','0','7'};
+        System.out.print(data);
+        String mystring="Lalitha";
+        mystring.getChars(7,7,data,0);
+        System.out.print(mystring);
+ }
+}        
         
         
         

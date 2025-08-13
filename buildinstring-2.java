@@ -51,4 +51,18 @@ class Main {
         }
         System.out.println("Concatenated string: " + concatenated);
     }
-}        
+}  
+
+//starts with
+        import java.util.Scanner;
+class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String x = sc.nextLine(); 
+        System.out.println(x.startsWith("hello"));  
+        System.out.println(x.startsWith("he"));    
+        sc.close();
+    }
+}
+

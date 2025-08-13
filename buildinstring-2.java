@@ -66,3 +66,22 @@ class Main {
     }
 }
 
+//substring
+  import java.util.Scanner;
+class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the data:");
+        String x = input.nextLine(); 
+        System.out.println(x.startsWith("hello"));  
+        System.out.println(x.startsWith("he"));    
+        if (x.length() >= 5) {
+            String sub = x.substring(0, 5);
+            System.out.println("Substring (first 5 chars): " + sub);
+        } else {
+            System.out.println("String is too short for a 5-character substring.");
+        }
+        input.close();
+    }
+}
+

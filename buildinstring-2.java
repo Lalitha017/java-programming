@@ -85,3 +85,38 @@ class Main {
     }
 }
 
+//uppercsae
+import java.util.Scanner;
+class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the data:");
+        String x = input.nextLine();
+        String lower = x.toLowerCase();
+        System.out.println(lower.startsWith("hello"));
+        System.out.println(lower.startsWith("he"));
+        if (x.length() >= 5) {
+            String sub = x.substring(0, 5).toUpperCase(); 
+            System.out.println("Substring (first 5 chars, uppercase): " + sub);
+        } else {
+            System.out.println("String is too short for a 5-character substring.");
+        }
+        input.close();
+    }
+}
+//valueof
+import java.util.Scanner;
+class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the data:");
+        String x = input.nextLine();
+        System.out.println(String.valueOf(x));
+        System.out.println(String.valueOf(true));
+        input.close();
+    }
+}
+
+
+
+

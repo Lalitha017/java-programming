@@ -312,6 +312,21 @@ class Main {
     }
 }
 
+//class
+class Person{
+    String n;
+    public Person(String n){
+        this.n=n;
+    }
+    public String toString(){
+        return "Person{name:'" + n + " '}";
+    }
+    public static void main(String[] args){
+        Person p = new Person("lalitha");
+        System.out.println(p.toString());
+    }
+}        
+
 
 
 

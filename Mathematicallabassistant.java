@@ -215,7 +215,7 @@ public class Maths extends JFrame {
         }
     }
 
-    // --- Updated continuous Fibonacci spiral ---
+    
     static class FibonacciPanel extends JPanel {
         int n;
         FibonacciPanel(int n) { this.n = Math.max(3, n); setBackground(Color.WHITE); }
@@ -237,7 +237,7 @@ public class Maths extends JFrame {
             int plotW = width - padL - padR;
             int plotH = height - padT - padB;
 
-            // --- Draw Grid and Axes - unchanged ---
+           
             g2.setColor(Color.WHITE);
             g2.fillRect(padL, padT, plotW, plotH);
             g2.setColor(Color.BLACK);
@@ -273,7 +273,7 @@ public class Maths extends JFrame {
             int tw = g2.getFontMetrics().stringWidth(title);
             g2.drawString(title, padL + plotW / 2 - tw / 2, padT - 28);
 
-            // --- Plot continuous spiral passing radius marks ---
+            
             int[] fibs = fibonacci(n);
             double startX = padL + plotW / 2.0;
             double startY = padT + plotH / 2.0;
@@ -286,7 +286,7 @@ public class Maths extends JFrame {
             g2.setStroke(new BasicStroke(4));
             Path2D.Double spiral = new Path2D.Double();
 
-            // The spiral: r = F_k for theta at quadrant boundaries
+           
             for (int k = 0; k < n - 1; k++) {
                 double rStart = fibs[k] * scale;
                 double rEnd = fibs[k + 1] * scale;

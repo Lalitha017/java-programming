@@ -2,7 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Path2D;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import java.util.Random;
 
 // Main class extending JFrame – the program’s window
@@ -44,7 +46,7 @@ public class Maths extends JFrame {
         mainPanel.add(title);
 
         // Central alignment and layout
-        int panelWidth = 900;  
+        int panelWidth = 900;
         int panelHeight = 430;
         int cx = screenSize.width/2 - panelWidth/2;
         int cy = screenSize.height/2 - panelHeight/2;
@@ -69,7 +71,7 @@ public class Maths extends JFrame {
         nLabel.setVisible(false); // hidden initially
         mainPanel.add(nLabel);
 
-        nField = new JTextField("7");
+        nField = new JTextField("10");
         nField.setFont(labelFont);
         nField.setBounds(cx + 30, cy + 290, 160, 35);
         nField.setVisible(false); // hidden initially
@@ -132,7 +134,7 @@ public class Maths extends JFrame {
         clearBtn.addActionListener(e -> {
             num1Field.setText("");
             num2Field.setText("");
-            nField.setText("7");
+            nField.setText("10");
             resultLabel.setText("");
             group.clearSelection();
             nLabel.setVisible(false);
@@ -244,104 +246,161 @@ public class Maths extends JFrame {
         }
     }
 
-    // ---------------- Fibonacci Curve Panel ----------------
+    // ---------------- Fibonacci Panel (REPLACED) ----------------
+    // Uses standard orientation: RIGHT -> UP -> LEFT -> DOWN (repeats)
+    // All drawing in black; axes and legend positioned as in your examples.
     static class FibonacciPanel extends JPanel {
         int n;
-        FibonacciPanel(int n) { this.n = Math.max(3, n); setBackground(Color.WHITE); }
 
-        // Generate Fibonacci sequence of given length
+        FibonacciPanel(int n) {
+            this.n = Math.max(3, n);
+            setBackground(Color.WHITE);
+        }
+
+        // generate fibonacci starting 0,1,1,2,3,...
         private int[] fibonacci(int count) {
             int[] fibs = new int[count];
-            fibs[0] = fibs[1] = 1;
-            for (int i = 2; i < count; i++)
-                fibs[i] = fibs[i - 1] + fibs[i - 2];
+            if (count > 0) fibs[0] = 0;
+            if (count > 1) fibs[1] = 1;
+            for (int i = 2; i < count; i++) fibs[i] = fibs[i - 1] + fibs[i - 2];
             return fibs;
         }
 
-        // Draw the Fibonacci spiral curve
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            Graphics2D g2 = (Graphics2D) g;
+        @Override
+        protected void paintComponent(Graphics g0) {
+            super.paintComponent(g0);
+            Graphics2D g2 = (Graphics2D) g0;
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-            // Define plot region
-            int width = getWidth(), height = getHeight();
-            int padL = 90, padR = 60, padT = 100, padB = 110;
+            int width = getWidth();
+            int height = getHeight();
+
+            // Plot padding
+            int padL = 120, padR = 80, padT = 80, padB = 110;
             int plotW = width - padL - padR;
             int plotH = height - padT - padB;
 
-            // Background and border
+            // Draw white plotting area and faint grid
             g2.setColor(Color.WHITE);
             g2.fillRect(padL, padT, plotW, plotH);
-            g2.setColor(Color.BLACK);
-            g2.setStroke(new BasicStroke(2));
-            g2.drawRect(padL, padT, plotW, plotH);
-
-            // Grid lines
-            g2.setColor(new Color(200, 200, 200));
+            g2.setColor(new Color(230, 230, 230));
             g2.setStroke(new BasicStroke(1));
-            int nxTicks = 8, nyTicks = 8;
-            for (int i = 1; i < nxTicks; i++) {
-                int x = padL + i * plotW / nxTicks;
+            int nx = 12, ny = 12;
+            for (int i = 1; i < nx; i++) {
+                int x = padL + i * plotW / nx;
                 g2.drawLine(x, padT, x, padT + plotH);
             }
-            for (int i = 1; i < nyTicks; i++) {
-                int y = padT + i * plotH / nyTicks;
+            for (int i = 1; i < ny; i++) {
+                int y = padT + i * plotH / ny;
                 g2.drawLine(padL, y, padL + plotW, y);
             }
 
-            // Axis labels and title
-            g2.setFont(new Font("SansSerif", Font.BOLD, 32));
+            // Title (black)
+            g2.setFont(new Font("SansSerif", Font.BOLD, 18));
             g2.setColor(Color.BLACK);
-            String xLabel = "X-axis (one unit)";
-            String yLabel = "Y-axis (one unit)";
-            FontMetrics fm = g2.getFontMetrics();
-            g2.drawString(xLabel, padL + plotW / 2 - fm.stringWidth(xLabel) / 2, height - padB / 2);
-
-            // Rotate for Y-axis label
-            AffineTransform orig = g2.getTransform();
-            g2.rotate(-Math.PI / 2);
-            g2.drawString(yLabel, -padT - plotH / 2 - fm.stringWidth(yLabel) / 2, 50);
-            g2.setTransform(orig);
-
-            // Title on top
-            g2.setFont(new Font("SansSerif", Font.BOLD, 38));
-            String title = "Fibonacci Curve";
-            int tw = g2.getFontMetrics().stringWidth(title);
-            g2.drawString(title, padL + plotW / 2 - tw / 2, padT - 28);
+            String title = "Fibonacci Curve (N=" + n + ")";
+            g2.drawString(title, padL + plotW / 2 - g2.getFontMetrics().stringWidth(title) / 2, padT - 28);
 
             // Compute Fibonacci numbers
             int[] fibs = fibonacci(n);
-            double startX = padL + plotW / 2.0;
-            double startY = padT + plotH / 2.0;
 
-            // Determine scale
-            double maxR = fibs[n - 1] + fibs[n - 2];
-            double scale = Math.min(plotW, plotH) / (2.1 * maxR);
+            // Determine scale so largest pieces fit comfortably
+            int last = Math.max(1, n - 1);
+            double outer = fibs[last] + ((last - 1 >= 0) ? fibs[last - 1] : 0);
+            double scale = Math.max(1.0, Math.min(plotW, plotH) / (2.2 * Math.max(1.0, outer)));
 
-            // Spiral generation: smooth transition between quadrant arcs
-            double tStep = Math.PI / 180;
-            g2.setColor(new Color(20, 30, 150));
-            g2.setStroke(new BasicStroke(4));
-            Path2D.Double spiral = new Path2D.Double();
+            // Choose origin (axes crossing) - tweak to match your layout.
+            // oxOffset fraction across plotW (0=left,1=right), oyOffset fraction down (0=top,1=bottom)
+            double oxOffset = 0.12; // keep axes more to left like your screenshot
+            double oyOffset = 0.42; // vertical placement similar to your example
+            double originX = padL + plotW * oxOffset;
+            double originY = padT + plotH * oyOffset;
 
-            // For each Fibonacci section, draw a quarter-arc smoothly connected
-            for (int k = 0; k < n - 1; k++) {
-                double rStart = fibs[k] * scale;
-                double rEnd = fibs[k + 1] * scale;
-                double thetaStart = k * Math.PI / 2;
-                double thetaEnd = (k + 1) * Math.PI / 2;
-                int steps = Math.max(20, (int) ((thetaEnd - thetaStart) / tStep));
+            // Draw axes lines (black), thicker stroke
+            g2.setColor(Color.BLACK);
+            g2.setStroke(new BasicStroke(3));
+            // vertical axis at originX
+            g2.drawLine((int) originX, padT, (int) originX, padT + plotH);
+            // horizontal axis at originY
+            g2.drawLine(padL, (int) originY, padL + plotW, (int) originY);
+
+            // Axis labels (small)
+            g2.setFont(new Font("SansSerif", Font.PLAIN, 12));
+            g2.drawString("Y", (int) originX + 4, padT + 14);
+            g2.drawString("X", padL + plotW - 18, (int) originY - 6);
+
+            // Draw quarter-arcs in BLACK with standard orientation: RIGHT -> UP -> LEFT -> DOWN ...
+            double baseAngle = 0.0; // start to the RIGHT
+            double px = originX;
+            double py = originY;
+
+            g2.setColor(Color.BLACK);
+            g2.setStroke(new BasicStroke(4f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+
+            for (int k = 1; k < n; k++) {
+                double r = fibs[k] * scale;
+                double thetaStart = baseAngle + (k - 1) * Math.PI / 2.0;
+                double thetaEnd = baseAngle + k * Math.PI / 2.0;
+
+                // compute center so the arc starts exactly at previous point (px,py)
+                double cxk = px - r * Math.cos(thetaStart);
+                double cyk = py - r * Math.sin(thetaStart);
+
+                // sample arc for smoothness
+                int steps = Math.max(24, (int) Math.ceil((thetaEnd - thetaStart) / (Math.PI / 720.0)));
+                Path2D.Double seg = new Path2D.Double();
                 for (int i = 0; i <= steps; i++) {
-                    double thetaCur = thetaStart + (thetaEnd - thetaStart) * i / steps;
-                    double r = rStart + ((rEnd - rStart) * (i / (double) steps));
-                    double x = startX + r * Math.cos(thetaCur);
-                    double y = startY + r * Math.sin(thetaCur);
-                    if (k == 0 && i == 0) spiral.moveTo(x, y);
-                    else spiral.lineTo(x, y);
+                    double frac = i / (double) steps;
+                    double theta = thetaStart + (thetaEnd - thetaStart) * frac;
+                    double x = cxk + r * Math.cos(theta);
+                    double y = cyk + r * Math.sin(theta);
+                    if (i == 0) seg.moveTo(x, y);
+                    else seg.lineTo(x, y);
+                    if (i == steps) {
+                        px = x; py = y; // update for next arc
+                    }
                 }
+                g2.draw(seg);
             }
-            g2.draw(spiral);
+
+            // Draw small black markers at joints (to show continuity)
+            g2.setColor(Color.BLACK);
+            g2.setStroke(new BasicStroke(1));
+            px = originX; py = originY;
+            g2.fill(new Ellipse2D.Double(px - 3, py - 3, 6, 6));
+            for (int k = 1; k < n; k++) {
+                double r = fibs[k] * scale;
+                double thetaStart = baseAngle + (k - 1) * Math.PI / 2.0;
+                double thetaEnd = baseAngle + k * Math.PI / 2.0;
+                double cxk = px - r * Math.cos(thetaStart);
+                double cyk = py - r * Math.sin(thetaStart);
+                double ex = cxk + r * Math.cos(thetaEnd);
+                double ey = cyk + r * Math.sin(thetaEnd);
+                g2.fill(new Ellipse2D.Double(ex - 3, ey - 3, 6, 6));
+                px = ex; py = ey;
+            }
+
+            // Legend: top-left near the plotting area - all text in black
+            g2.setFont(new Font("SansSerif", Font.PLAIN, 12));
+            int lx = padL - 110; // position left of plotting area
+            int ly = padT + 6;
+            g2.setColor(Color.BLACK);
+            g2.drawString("Curve Lengths:", lx, ly + 2);
+
+            // Show curve radii (units). Present entries for k=1..(n-1).
+            for (int k = 1; k < n; k++) {
+                // small swatch (black)
+                g2.fillRect(lx - 8, ly + 12 + (k - 1) * 14, 9, 9);
+                String txt = "Curve " + k + " : " + fibs[k] + " units";
+                g2.drawString(txt, lx + 12, ly + 22 + (k - 1) * 14);
+                // limit legend vertical overflow
+                if (ly + 22 + (k - 1) * 14 > padT + 160) break;
+            }
+
+            // Footer showing scale factor (in black)
+            g2.setFont(new Font("SansSerif", Font.PLAIN, 11));
+            String scaleTxt = String.format("Scale = %.3f px/unit", scale);
+            g2.drawString(scaleTxt, padL + 6, padT + plotH + 24);
         }
     }
 
@@ -354,23 +413,19 @@ public class Maths extends JFrame {
         private final Random rand = new Random();
 
         public AnimatedMathPanel() {
-            // Randomly assign positions and small velocities for each symbol
             for (int i = 0; i < points.length; i++) {
                 points[i] = new Point(rand.nextInt(1800), rand.nextInt(1000));
                 dx[i] = rand.nextDouble() * 1.0 - 0.5;
                 dy[i] = rand.nextDouble() * 1.0 - 0.5;
             }
-
-            // Timer updates positions every 50ms → animation effect
             new Timer(50, e -> {
                 for (int i = 0; i < points.length; i++) {
                     points[i].x += dx[i];
                     points[i].y += dy[i];
-                    // Bounce off edges
                     if (points[i].x < 0 || points[i].x > getWidth()) dx[i] = -dx[i];
                     if (points[i].y < 80 || points[i].y > getHeight()) dy[i] = -dy[i];
                 }
-                repaint(); // redraw to show movement
+                repaint();
             }).start();
         }
 
@@ -378,21 +433,15 @@ public class Maths extends JFrame {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             Graphics2D g2 = (Graphics2D) g;
-
-            // Create soft pink gradient background
             Color c1 = new Color(255, 228, 235);
             Color c2 = new Color(255, 182, 193);
             GradientPaint gp = new GradientPaint(0, 60, c1, getWidth(), getHeight(), c2);
             g2.setPaint(gp);
             g2.fillRect(0, 80, getWidth(), getHeight());
-
-            // Draw moving math symbols
             g2.setFont(new Font("Times New Roman", Font.BOLD, 44));
             g2.setColor(Color.WHITE);
             for (int i = 0; i < points.length; i++) {
-                g2.drawString(symbols[i % symbols.length],
-                              points[i].x % getWidth(),
-                              points[i].y % getHeight());
+                g2.drawString(symbols[i % symbols.length], points[i].x % Math.max(1, getWidth()), points[i].y % Math.max(1, getHeight()));
             }
         }
     }
